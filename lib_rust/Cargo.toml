@@ -1,0 +1,16 @@
+[package]
+name = "naranyala"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+
+[lib]
+crate-type = ["cdylib"] # produce .so/.dylib/.dll
+
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
