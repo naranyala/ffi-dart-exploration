@@ -1,4 +1,4 @@
 
 ./**/target
-./**/.zig-change
+./**/.zig-cache
 ./**/zig-out
