@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dart experience</title>
+  <!-- Smooth scrolling -->
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-dart.min.js"></script>
+  <!-- Mermaid.js for diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      mermaid.initialize({ 
+        startOnLoad: true, 
+        theme: 'dark',
+        themeVariables: {
+          darkMode: true,
+          background: '#2d2d2d',
+          primaryColor: '#00bfff',
+          primaryTextColor: '#ddd',
+          primaryBorderColor: '#00bfff',
+          lineColor: '#ddd',
+          secondaryColor: '#3d3d3d',
+          tertiaryColor: '#4d4d4d'
+        }
+      });
+    });
+  </script>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #1e1e1e;
+      color: #ddd;
+      padding: 1rem;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #00bfff;
+    }
+    a {
+      color: #00bfff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .back-link {
+      margin-bottom: 1rem;
+      display: block;
+    }
+    pre {
+      background: #2d2d2d;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+    code {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      background: #2d2d2d;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    /* Mermaid */
+    .mermaid {
+      background: #2d2d2d;
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Metadata */
+    .metadata {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 6px;
+      margin: 1rem 0 2rem 0;
+    }
+    .metadata summary {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: #00bfff;
+      user-select: none;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+    }
+    .metadata summary:hover {
+      background: #333;
+    }
+    .metadata[open] summary {
+      border-bottom: 1px solid #444;
+      margin-bottom: 0;
+      border-radius: 6px 6px 0 0;
+    }
+    .metadata-content {
+      padding: 0 1rem 1rem 1rem;
+      border-top: 1px solid #444;
+    }
+    .metadata-item {
+      display: flex;
+      margin: 0.5rem 0;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .metadata-key {
+      color: #888;
+      min-width: 120px;
+      font-size: 0.9em;
+      flex-shrink: 0;
+    }
+    .metadata-value {
+      color: #ddd;
+      font-size: 0.9em;
+      word-break: break-word;
+    }
+    .metadata-value time {
+      color: #90EE90;
+      font-family: monospace;
+    }
+    .metadata-value a {
+      color: #00bfff;
+      word-break: break-all;
+    }
+
+    /* Table of Contents */
+    .toc {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+    .toc summary {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: #00bfff;
+      user-select: none;
+      border-radius: 6px;
+      background: #333;
+      transition: background-color 0.2s ease;
+    }
+    .toc summary:hover {
+      background: #3a3a3a;
+    }
+    .toc[open] summary {
+      border-bottom: 1px solid #444;
+      margin-bottom: 0;
+      border-radius: 6px 6px 0 0;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0.5rem 1rem 1rem 1rem;
+      margin: 0;
+      background: #2d2d2d;
+      font-size: 0.95em;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .toc-list li {
+      margin: 0.4rem 0;
+      word-break: break-word;
+    }
+    .toc-list a {
+      color: #ddd;
+      transition: color 0.2s;
+      display: block;
+      padding: 0.1rem 0;
+    }
+    .toc-list a:hover {
+      color: #00bfff;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0.75rem;
+      }
+      pre {
+        font-size: 0.9rem;
+      }
+      .mermaid {
+        font-size: 0.8rem;
+      }
+      .metadata-item, .toc-list li {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .metadata-key {
+        min-width: auto;
+      }
+    }
+
+.article-date {
+  color: #888;
+  font-size: 0.95em;
+  margin: -0.2rem 0 1rem 0;
+  font-style: italic;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.article-date time {
+  color: #90EE90;
+}
+
+blockquote {
+  background: #2a2a2a;
+  border-left: 4px solid #00bfff;
+  padding: 0.75rem 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #ccc;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.article-list {
+  list-style: none;
+  padding: 0;
+}
+
+.article-list li {
+  margin: 0.7rem 0;
+  padding: 0.5rem 0;
+}
+
+.article-list li:last-child {
+  border-bottom: none;
+}
+
+.article-list a {
+  font-size: 1.1em;
+  color: #ddd;
+  display: block;
+  transition: color 0.2s;
+}
+
+.article-list a:hover {
+  color: #00bfff;
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+  <a class="back-link" href="index.html">← Back to Home</a>
+  <html><head></head><body><details class="metadata">
+<summary>📄 Document Metadata</summary>
+<div class="metadata-content">
+<div class="metadata-item">
+<strong class="metadata-key">Date Created:</strong>
+<span class="metadata-value"><time datetime="2020-02-02">2020-02-02</time></span>
+</div>
+<div class="metadata-item">
+<strong class="metadata-key">Date Updated:</strong>
+<span class="metadata-value"><time datetime="2020-02-02">2020-02-02</time></span>
+</div>
+<div class="metadata-item">
+<strong class="metadata-key">Is Public:</strong>
+<span class="metadata-value">true</span>
+</div>
+</div>
+</details><details class="toc" open="">
+  <summary>📋 Table of Contents</summary>
+  <ul class="toc-list">
+    <li style="margin-left: 0.0rem;"><a href="#dart-experience">dart experience</a></li>
+    <li style="margin-left: 1.2rem;"><a href="#i-love-it">i love it</a></li>
+  </ul>
+</details><h1 id="dart-experience">dart experience</h1><p class="article-date"> created at <time class="datetime">February 2, 2020</time> updated at <time class="datetime">February 2, 2020</time> </p>
+<p>why choosing dart? it's very productive and rich ecosystem, i'm talking about
+http://pub.dev.</p>
+<p>the language itself build by Google and still evolving into more mature
+modern programming language.</p>
+<h2 id="i-love-it">i love it</h2>
+<p>i will using it for my main career journey, spark joy and make programming fun
+again</p>
+</body></html>
+</body>
+</html>

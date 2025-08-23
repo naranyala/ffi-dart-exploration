@@ -40,19 +40,106 @@ List<Commit> parseCommits(String log) =>
 /// Generates a simple HTML report from commit data.
 String generateHtml(List<Commit> commits) {
   final buffer = StringBuffer();
-  buffer.writeln('<!DOCTYPE html>');
-  buffer.writeln('<html lang="en"><head><meta charset="UTF-8">');
-  buffer.writeln('<title>Git Commit History</title>');
-  buffer.writeln('<style>body{font-family:sans-serif;}li{margin-bottom:8px;}</style>');
-  buffer.writeln('</head><body>');
-  buffer.writeln('<h1>Git Commit History</h1>');
-  buffer.writeln('<ul>');
+  buffer.writeln('''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git Commit History</title>
+  <style>
+    :root {
+      --bg: #f9f9f9;
+      --card: #ffffff;
+      --text: #333;
+      --accent: #007acc;
+      --border: #e0e0e0;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .commit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .commit {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .commit-date {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .commit-author {
+      font-weight: bold;
+      margin-top: 0.25rem;
+    }
+
+    .commit-message {
+      margin-top: 0.5rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .commit {
+        padding: 0.75rem;
+      }
+
+      h1 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Git Commit History</h1>
+  <div class="commit-list">
+''');
+
   for (var commit in commits) {
-    buffer.writeln('<li><strong>${commit.date.toIso8601String()}</strong> '
-        'by <em>${commit.author}</em><br>'
-        '<code>${commit.message}</code></li>');
+    buffer.writeln('''
+    <div class="commit">
+      <div class="commit-date">${commit.date.toIso8601String()}</div>
+      <div class="commit-author">${commit.author}</div>
+      <div class="commit-message">${commit.message}</div>
+    </div>
+''');
   }
-  buffer.writeln('</ul></body></html>');
+
+  buffer.writeln('''
+  </div>
+</body>
+</html>
+''');
+
   return buffer.toString();
 }
 
