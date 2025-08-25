@@ -2,3 +2,5 @@
 ./**/target
 ./**/.zig-cache
 ./**/zig-out
+
+./**/raylib-5.5*
