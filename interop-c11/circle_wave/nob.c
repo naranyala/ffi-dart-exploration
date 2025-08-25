@@ -18,8 +18,8 @@ int main(int argc, char **argv) {
   const char *src_dir = "src";
   const char *exe_path = "build/game";
 
-  const char *raylib_include = "raylib-5.5_linux_amd64/include";
-  const char *raylib_lib = "raylib-5.5_linux_amd64/lib";
+  const char *raylib_include = "../raylib-5.5_linux_amd64/include";
+  const char *raylib_lib = "../raylib-5.5_linux_amd64/lib";
 
   bool use_static = true; // toggle this flag for static/dynamic
 
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
   if (use_static) {
     nob_cmd_append(&cmd, "-l:libraylib.a"); // static file in raylib/lib
   } else {
-    nob_cmd_append(&cmd, "-lraylib"); // dynamic .so/.dylib/.dll 
+    nob_cmd_append(&cmd, "-lraylib"); // dynamic .so/.dylib/.dll
   }
 
   nob_cmd_append(&cmd, "-lm");

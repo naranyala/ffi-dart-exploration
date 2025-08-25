@@ -18,8 +18,8 @@ int main(int argc, char **argv) {
   const char *src_dir = "src";
   const char *exe_path = "build/game";
 
-  const char *raylib_include = "raylib-5.5_linux_amd64/include";
-  const char *raylib_lib = "raylib-5.5_linux_amd64/lib";
+  const char *raylib_include = "../_raylib-5.5_linux_amd64/include";
+  const char *raylib_lib = "../_raylib-5.5_linux_amd64/lib";
 
   // Choose static or dynamic
   bool use_static = true; // toggle this flag for static/dynamic

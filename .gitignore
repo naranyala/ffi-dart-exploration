@@ -1,6 +1,6 @@
 
-./**/target/*
-./**/.zig-cache
-./**/zig-out
+**/target/*
+**/.zig-cache
+**/zig-out
 
-./**/raylib-5.5*
+**/raylib-5.5*
