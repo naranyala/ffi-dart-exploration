@@ -11,12 +11,13 @@ int main(int argc, char **argv) {
   Nob_Cmd cmd = {0};
 
   // Output binary inside build/
-  const char *output = "build/tui_app";
+  const char *output = "build/random_number";
 
   nob_cmd_append(&cmd, "cc");
   nob_cmd_append(&cmd, "-Wall", "-Wextra", "-std=c11");
   nob_cmd_append(&cmd, "-Isrc");
-  nob_cmd_append(&cmd, "src/main.c");
+  // nob_cmd_append(&cmd, "src/main.c");
+  nob_cmd_append(&cmd, "src/random_number.c");
   nob_cmd_append(&cmd, "-o", output);
   nob_cmd_append(&cmd, "-lncurses");
 
